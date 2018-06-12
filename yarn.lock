@@ -1528,7 +1528,7 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-express@^4.16.2, express@^4.16.3:
+express@^4.16.2:
   version "4.16.3"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.3.tgz#6af8a502350db3246ecc4becf6b5a34d22f7ed53"
   dependencies:
@@ -4256,7 +4256,7 @@ socket.io-adapter@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/socket.io-adapter/-/socket.io-adapter-1.1.1.tgz#2a805e8a14d6372124dd9159ad4502f8cb07f06b"
 
-socket.io-client@2.1.1, socket.io-client@^2.0.0, socket.io-client@^2.1.1:
+socket.io-client@2.1.1, socket.io-client@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-2.1.1.tgz#dcb38103436ab4578ddb026638ae2f21b623671f"
   dependencies:
@@ -4820,10 +4820,6 @@ uuid@^3.0.0, uuid@^3.0.1, uuid@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
-uws@^10.148.0:
-  version "10.148.0"
-  resolved "https://registry.yarnpkg.com/uws/-/uws-10.148.0.tgz#3fcd35f083ca515e091cd33b2d78f0f51a666215"
-
 v8-compile-cache@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.0.0.tgz#526492e35fc616864284700b7043e01baee09f0a"
@@ -4878,12 +4874,6 @@ vue-loader@14.2.2:
     vue-hot-reload-api "^2.2.0"
     vue-style-loader "^4.0.1"
     vue-template-es2015-compiler "^1.6.0"
-
-vue-socket.io@^2.1.1-b:
-  version "2.1.1-b"
-  resolved "https://registry.yarnpkg.com/vue-socket.io/-/vue-socket.io-2.1.1-b.tgz#bcffcdeb1647a979e6533d63d1f29c0f55411c8c"
-  dependencies:
-    socket.io-client "^2.0.0"
 
 vue-style-loader@^4.0.1, vue-style-loader@^4.1.0:
   version "4.1.0"
