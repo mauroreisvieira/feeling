@@ -2,6 +2,7 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+// Try: http://127.0.0.1:3000
 server.listen('3000');
 
 app.get('/' , function (request , response) {
