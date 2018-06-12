@@ -4,7 +4,7 @@ module.exports = {
 	node: {
 		fs: 'empty'
 	},
-	entry: './main.js',
+	entry: './src/main.js',
 	output: {
 		path: path.resolve(__dirname, 'dist/'),
 		filename: '[name].min.js',
