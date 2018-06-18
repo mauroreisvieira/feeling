@@ -2,8 +2,8 @@
 	<div>
 		<header class="header"></header>
 		<main class="main">
-            <login></login>
-			<!-- <chat></chat> -->
+            <login v-if="!isLogged"></login>
+			<chat v-if="isLogged"></chat>
 		</main>
 	</div>
 </template>
@@ -14,7 +14,20 @@ import Rooms from './components/Rooms.vue'
 import Chat from './components/Chat.vue'
 export default {
 	name: 'app',
-	components: { Login, Rooms, Chat }
+	components: { Login, Rooms, Chat },
+    data() {
+        return {
+            isLogged: false
+        }
+    },
+    methods: {
+        init() {
+            this.isLogged = localStorage.getItem('isLogged');
+        }
+    },
+    mounted() {
+        this.init();
+    }
 }
 </script>
 

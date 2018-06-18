@@ -1,11 +1,18 @@
 <template>
-    <div v-show="!isLogged">
-        <h1>Login</h1>
-        <form>
-            <input type="text" v-model="userName" placeholder="Your Name">
-            <input type="text" v-model="userEmail" placeholder="Your Email">
-            <button class="button" type="submit" v-on:click="login">Login</button>
-        </form>
+    <div v-show="!isLogged" class="login">
+        <div class="login__header">
+            <h1 class="login__heading">Login</h1>
+        </div>
+        <div class="login__body" v-if="userPhoto !== ''">
+            <img :src="userPhoto" title="{userName}" alt="{userName}">
+        </div>
+        <div class="login__body">
+            <form class="form" @submit.prevent="login()">
+                <input type="text" v-model="userName" class="form__input" placeholder="Your Name">
+                <input type="text" v-model="userEmail" class="form__input" placeholder="Your Email">
+                <button class="button btn--login" type="submit">Login</button>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -24,15 +31,21 @@ export default {
     },
     methods: {
         init() {
-            this.isLogged = localStorage.getItem('isLogged');
+            this.isLogged = localStorage.getItem('isLogged') ? localStorage.getItem('isLogged') : false;
+            this.$emit('isLogged', this.isLogged);
         },
-        login (event) {
+        login () {
+            console.log('Loin');
             event.preventDefault();
-            if (this.userName !== '' & this.userEmail !== '') {
+            if (this.checkEmail()) {
                 this.userPhoto = this.getPhoto();
-                this.isLogged = true;
+                // this.isLogged = true;
                 this.setStorage();
+                this.$emit('isLogged', this.isLogged);
             }
+        },
+        checkEmail() {
+            return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.userEmail));
         },
         getPhoto(size = 200) {
             return 'http://www.gravatar.com/avatar/' + this.hash.md5(this.userEmail, false, false) + '.jpg?s=' + size;
