@@ -2,7 +2,8 @@
 	<div>
 		<header class="header"></header>
 		<main class="main">
-			<chat></chat>
+            <login></login>
+			<!-- <chat></chat> -->
 		</main>
 	</div>
 </template>
