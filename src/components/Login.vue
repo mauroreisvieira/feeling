@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!isLogged" class="login">
+    <div class="login">
         <div class="login__header">
             <h1 class="login__heading">Login</h1>
         </div>
@@ -7,10 +7,14 @@
             <img :src="userPhoto" title="{userName}" alt="{userName}">
         </div>
         <div class="login__body">
-            <form class="form" @submit.prevent="login()">
-                <input type="text" v-model="userName" class="form__input" placeholder="Your Name">
-                <input type="text" v-model="userEmail" class="form__input" placeholder="Your Email">
-                <button class="button btn--login" type="submit">Login</button>
+            <form class="form form--login" @submit.prevent="login()">
+                <div class="form__field">
+                    <input type="text" v-model="userName":class="'form__input ' + [nameValid ? '' : 'is-invalid']" placeholder="Your Name">
+                </div>
+                <div class="form__field">
+                    <input type="email" v-model="userEmail" :class="'form__input ' + [emailValid ? '' : 'is-invalid']" placeholder="Your Email">
+                </div>
+                <button class="btn btn--login" type="submit">Login</button>
             </form>
         </div>
     </div>
@@ -26,22 +30,23 @@ export default {
             userName: '',
             userEmail: '',
             userPhoto: '',
+            nameValid: true,
+            emailValid: true,
             hash: new Md5()
         }
     },
     methods: {
-        init() {
-            this.isLogged = localStorage.getItem('isLogged') ? localStorage.getItem('isLogged') : false;
-            this.$emit('isLogged', this.isLogged);
-        },
         login () {
-            console.log('Loin');
-            event.preventDefault();
             if (this.checkEmail()) {
                 this.userPhoto = this.getPhoto();
-                // this.isLogged = true;
+                this.isLogged = true;
+                this.emailValid = true;
+                this.nameValid = true;
+                this.dispatchLoginState();
                 this.setStorage();
-                this.$emit('isLogged', this.isLogged);
+            } else {
+                this.emailValid = false;
+                this.nameValid = this.userName !== '' ? true : false;
             }
         },
         checkEmail() {
@@ -50,6 +55,9 @@ export default {
         getPhoto(size = 200) {
             return 'http://www.gravatar.com/avatar/' + this.hash.md5(this.userEmail, false, false) + '.jpg?s=' + size;
         },
+        dispatchLoginState() {
+            this.$store.dispatch('login', this.isLogged);
+        },
         setStorage() {
             localStorage.setItem('userName', this.userName);
             localStorage.setItem('userEmail', this.userEmail);
@@ -57,9 +65,7 @@ export default {
             localStorage.setItem('isLogged', this.isLogged);
         }
     },
-    mounted() {
-        this.init();
-    }
+    mounted() {}
 }
 </script>
 

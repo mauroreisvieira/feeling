@@ -1,32 +1,50 @@
 <template>
-	<div>
-		<h1>Hi {{userName}} to #{{ room == '' ? 'Feeling' : room}} room</h1>
-		<div class="chat">
-			<div class="chat__list">
-				<h1>Rooms</h1>
-				<div v-bind:class='room == "general" ? "chat__user--active" : "chat__user"' @click="joinRoom('general')">
-					<p>#general </p>
+	<div class="wrapper">
+		<header-layout :room="room" :profilePhoto="userPhoto" :profileName="userName"></header-layout>
+		<main class="main">
+			<rooms @click="joinRoom('general')" name="HTML"></rooms>
+			<div class="chat">
+				<div class="chat__messages">
+					<div class="chat__messages__user" v-for="message in messages" :class="userEmail === message.userEmail ? 'chat__messages__user--myself' : ''">
+						<div class="chat__messages__photo">
+							<img class="chat__messages__picture" :src="message.userPhoto" :alt="message.userName" :title="message.userName">
+						</div>
+						<div class="chat__messages__content">
+							<div class="chat__messages__name">
+								{{ message.userName }}
+							</div>
+							<div class="chat__messages__time">
+								1:20pm
+							</div>
+							<div class="chat__messages__text">
+								{{ message.msg }}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="chat__actions">
+					<form class="form" @submit.prevent="sendMessage()">
+						<div class="form__field">
+							<input v-model="messageText" class="form__message" placeholder="Type Message">
+						</div>
+						<button :disabled="messageText === ''" class="btn btn--send" type="submit">Send</button>
+					</form>
 				</div>
 			</div>
-			<div class="chat__messages">
-				<div class="chat__messages__user" v-for="message in messages" :class="userEmail === message.userEmail ? '' : 'is-guess'">
-					<img :src="message.userPhoto" :alt="message.userName" :title="message.userName">
-					<a :href="message.userEmail" :title="message.userEmail">{{ message.userEmail }}</a>
-					<p><strong>{{ message.userName }}:</strong> {{ message.msg }}</p>
-				</div>
-			</div>
-			<form @submit.prevent="sendMessage()">
-				<input type="text" v-model="messageText" placeholder="Type Message">
-				<button class="button" type="submit">Send</button>
-			</form>
-		</div>
+		</main>
 	</div>
 </template>
 
 <script>
 import io from 'socket.io-client';
+import Header from './../layout/Header.vue'
+import Rooms from './Rooms.vue'
 export default {
 	name: 'chat',
+	components: {
+		'header-layout': Header,
+		'rooms': Rooms
+	},
 	props: {},
 	data() {
 		return {

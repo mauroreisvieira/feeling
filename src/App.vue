@@ -1,20 +1,16 @@
 <template>
 	<div>
-		<header class="header"></header>
-		<main class="main">
-            <login v-if="!isLogged"></login>
-			<chat v-if="isLogged"></chat>
-		</main>
+        <login v-if="!getState"></login>
+        <chat v-if="getState"></chat>
 	</div>
 </template>
 
 <script>
 import Login from './components/Login.vue'
-import Rooms from './components/Rooms.vue'
 import Chat from './components/Chat.vue'
 export default {
 	name: 'app',
-	components: { Login, Rooms, Chat },
+	components: { Login, Chat },
     data() {
         return {
             isLogged: false
@@ -22,11 +18,16 @@ export default {
     },
     methods: {
         init() {
-            this.isLogged = localStorage.getItem('isLogged');
+            this.$store.dispatch('validateSession');
         }
     },
     mounted() {
         this.init();
+    },
+    computed: {
+        getState() {
+            return this.$store.state.isLogged;
+        }
     }
 }
 </script>

@@ -1,3 +1,247 @@
+@import 'theme';
+
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto Mono';
+}
+
+html {
+    font-size: 16px;
+}
+
 body {
-    background-color: #dddeee;
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    display: flex;
+    padding: $theme-baseline * 2 $theme-baseline * 4;
+    background-color: #eee;
+
+    &__logo {
+        flex: 1;
+    }
+
+    &__user {
+        display: flex;
+        flex-basis: 20%;
+        align-items: center;
+        font-size: .8rem;
+
+        &__name {
+            display: inline-flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            flex: 1;
+            padding-right: $theme-baseline * 2;
+        }
+
+        &__photo {
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            overflow: hidden;
+        }
+
+        &__picture {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.login {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 0 24px #00000030;
+    border-radius: $theme-baseline;
+    transform: translateY(-100%);
+
+    &__header {
+        padding: $theme-baseline * 4;
+        padding-bottom: 0;
+    }
+
+    &__body {
+        padding: $theme-baseline * 4;
+    }
+}
+
+.main {
+    display: flex;
+    flex: 1;
+}
+
+.rooms {
+    position: relative;
+    flex-basis: 300px;
+    padding: $theme-baseline * 4;
+
+    &::before {
+        position: absolute;
+        right: -12px;
+        display: block;
+        width: 1px;
+        height: 100%;
+        background-color: #eee;
+        content: '';
+    }
+}
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    &__messages {
+        flex-grow: 1;
+        padding: $theme-baseline * 4;
+        overflow: hidden;
+        overflow-y: auto;
+
+        &__photo {
+            width: 54px;
+            min-width: 54px;
+            height: 54px;
+            overflow: hidden;
+        }
+        &__picture {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 100%;
+        }
+
+        &__content {
+            flex-wrap: wrap;
+            display: flex;
+            justify-content: space-between;
+            padding: 24px;
+            margin-left: 24px;
+            background-color: #DADADA;
+            border-radius: 30px 30px 30px 0;
+        }
+
+        &__text {
+            word-break: break-all;
+            width: 100%;
+            margin-top: $theme-baseline;
+        }
+
+        &__user {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: $theme-baseline * 2;
+
+            &--myself {
+                flex-direction: row-reverse;
+
+                .chat__messages__content {
+                    margin-right: 24px;
+                    margin-left: 0;
+                    background-color: #4CA2FF;
+                    color: #fff;
+                    border-radius: 30px 30px 0;
+                }
+            }
+        }
+    }
+
+    &__actions {
+        padding: $theme-baseline * 4;
+
+        &::before {
+            position: relative;
+            top: -12px;
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: #eee;
+            content: '';
+        }
+    }
+}
+
+.form {
+    display: flex;
+    width: 100%;
+
+    &--login {
+        flex-direction: column;
+
+        .form__field {
+            margin-bottom: $theme-baseline;
+        }
+    }
+
+    &__field {
+        flex-grow: 1;
+    }
+
+
+    &__input {
+        width: 100%;
+        padding: $theme-baseline * 2;
+        border: 0;
+        background: #ddd;
+        font-size: 1rem;
+        border-radius: $theme-baseline;
+
+        &:focus {
+            outline: none;
+        }
+
+
+        &.is-invalid {
+            background-color: #faebd7;
+        }
+    }
+
+    &__message {
+        width: 100%;
+        padding: $theme-baseline * 4 $theme-baseline * 2;
+        border: 0;
+        background: #0000;
+        font-size: 1rem;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.btn {
+    min-width: 120px;;
+    padding: $theme-baseline * 2 $theme-baseline * 4;
+    border: 0;
+    border-radius: $theme-baseline;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 400;
+
+    &[disabled] {
+        opacity: .5;
+    }
+
+    &--login {
+        background-color: #6495ed;
+        color: #fff;
+    }
+
+    &--send {
+        background-color: #8fbc8f;
+        color: #fff;
+    }
 }
