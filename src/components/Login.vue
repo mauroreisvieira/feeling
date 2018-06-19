@@ -1,7 +1,8 @@
 <template>
     <div class="login">
         <div class="login__header">
-            <h1 class="login__heading">Login</h1>
+            <h1 class="login__heading">Welcome Back,</h1>
+            <h1 class="login__info">Sign in to continue</h1>
         </div>
         <div class="login__body" v-if="userPhoto !== ''">
             <img :src="userPhoto" title="{userName}" alt="{userName}">
@@ -9,10 +10,12 @@
         <div class="login__body">
             <form class="form form--login" @submit.prevent="login()">
                 <div class="form__field">
-                    <input type="text" v-model="userName":class="'form__input ' + [nameValid ? '' : 'is-invalid']" placeholder="Your Name">
+                    <label class="form__label" for="userName">Name</label>
+                    <input id="userName" type="text" v-model="userName":class="'form__input ' + [nameValid ? '' : 'is-invalid']">
                 </div>
                 <div class="form__field">
-                    <input type="email" v-model="userEmail" :class="'form__input ' + [emailValid ? '' : 'is-invalid']" placeholder="Your Email">
+                    <label class="form__label" for="userEmail">Email</label>
+                    <input id="userEmail" type="text" v-model="userEmail" :class="'form__input ' + [emailValid ? '' : 'is-invalid']">
                 </div>
                 <button class="btn btn--login" type="submit">Login</button>
             </form>

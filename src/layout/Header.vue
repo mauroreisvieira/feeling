@@ -7,10 +7,7 @@
             <div class="header__user__name">
                 {{profileName}}
             </div>
-            <div class="header__user__logout" @click="logout">
-                Logout
-            </div>
-            <div class="header__user__photo">
+            <div class="header__user__photo" @click="logout">
                 <img class="header__user__picture" :src="profilePhoto" :alt="profileName" :title="profileName">
             </div>
         </div>
