@@ -6,12 +6,13 @@
 // Modules
 @import "_modules/_topbar";
 @import "_modules/_rooms";
-@import "_modules/_list_users";
+@import "_modules/_users";
 
 // Components
 @import "_components/_typography";
 @import "_components/_form";
 @import "_components/_button";
+@import "_components/_tooltip";
 
 // Pages
 @import "_pages/_login";

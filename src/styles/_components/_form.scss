@@ -16,7 +16,7 @@
 
 
     &__label {
-        font-size: $fontSmall;
+        font-size: $fontXSmall;
         text-transform: uppercase;
         color: #A4A5A4;
     }
@@ -45,7 +45,8 @@
         padding: $baseLine * 4 $baseLine * 2;
         border: 0;
         background: #0000;
-        font-size: 1rem;
+        font-size: $fontBase;
+        font-weight: $fontRegular;
 
         &:focus {
             outline: none;

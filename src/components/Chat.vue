@@ -2,28 +2,28 @@
 	<div class="wrapper">
 		<topbar :room="room" :profilePhoto="userPhoto" :profileName="userName"></topbar>
 		<main class="main">
-			<rooms @click="joinRoom('general')" name="HTML"></rooms>
+			<rooms @click="joinRoom('general')" name="general"></rooms>
 			<div class="chat">
 				<div class="chat__header">
-					<div class="list_users">
-						<div class="list_users__item"  v-for="user in users">
-							<img class="list_users__picture" :src="user.userPhoto" :alt="user.userName" :title="user.userName">
+					<div class="users">
+						<div class="users__item is-online" v-for="user in users" :data-tooltip="user.userName">
+							<img class="users__picture" :src="user.userPhoto" :alt="user.userName" :title="user.userName">
 						</div>
 					</div>
 				</div>
 				<div class="chat__messages">
-					<div class="chat__messages__user" v-for="message in messages" :class="userEmail === message.userEmail ? 'chat__messages__user--myself' : ''">
-						<div class="chat__messages__photo">
-							<img class="chat__messages__picture" :src="message.userPhoto" :alt="message.userName" :title="message.userName">
+					<div class="chat__user" v-for="message in messages" :class="userEmail === message.userEmail ? 'chat__user--myself' : ''">
+						<div class="chat__photo">
+							<img class="chat__picture" :src="message.userPhoto" :alt="message.userName" :title="message.userName">
 						</div>
-						<div class="chat__messages__content">
-							<div class="chat__messages__name">
+						<div class="chat__content">
+							<div class="chat__name">
 								{{ message.userName }}
 							</div>
-							<div class="chat__messages__time">
+							<div class="chat__time">
 								{{ message.timestamp | formatDate }}
 							</div>
-							<div class="chat__messages__text">
+							<div class="chat__text">
 								{{ message.message }}
 							</div>
 						</div>
@@ -32,7 +32,7 @@
 				<div class="chat__actions">
 					<form class="form" @submit.prevent="sendMessage()">
 						<div class="form__field">
-							<input v-model="messageText" class="form__message" placeholder="Type Message">
+							<input v-model="messageText" class="form__message" placeholder="Type Message...">
 						</div>
 						<button :disabled="messageText === ''" class="btn btn--send" type="submit">Send</button>
 					</form>
