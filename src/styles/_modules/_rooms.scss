@@ -1,7 +1,7 @@
 .rooms {
+    position: relative;
     flex-basis: $roomsWidth;
     flex-direction: column;
-    position: relative;
     padding: $baseLine * 4;
 
     @include small-only {
@@ -10,7 +10,8 @@
 
     &::before {
         position: absolute;
-        right: -12px;
+        top: 0;
+        right: 0;
         display: block;
         width: 1px;
         height: 100%;

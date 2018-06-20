@@ -1,23 +1,23 @@
 <template>
-    <header class="header">
-        <div class="header__logo">
-            <p>{{room}}</p>
+    <div class="topbar">
+        <div class="topbar__logo">
+            #{{room}}
         </div>
-        <div class="header__user">
-            <div class="header__user__name">
+        <div class="topbar__user">
+            <div class="topbar__user__name">
                 {{profileName}}
             </div>
-            <div class="header__user__photo" @click="logout">
-                <img class="header__user__picture" :src="profilePhoto" :alt="profileName" :title="profileName">
+            <div class="topbar__user__photo" @click="logout">
+                <img class="topbar__user__picture" :src="profilePhoto" :alt="profileName" :title="profileName">
             </div>
         </div>
-    </header>
+    </div>
 </template>
 
 <script>
     import io from 'socket.io-client';
     export default {
-        name: 'header',
+        name: 'topbar',
         props: {
             room: {
               type: String,

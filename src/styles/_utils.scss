@@ -18,7 +18,7 @@ $lineHeight: 26px;
 }
 
 // Header
-$headerHeight: $baseLine * 12;
+$topBarHeight: $baseLine * 12;
 
 // Rooms
 $roomsWidth: 320px;
@@ -84,13 +84,13 @@ $fontHighlight: "Roboto Condensed", Helvetica, sans-serif;
 $fontIcon: "icons";
 
 // Defining font sizes
-$fontSmall: calculateRem(13px);
+$fontSmall: calculateRem(14px);
 $fontBase: calculateRem(16px);
-$fontMedium: calculateRem(20px);
-$fontLarge: calculateRem(26px);
-$fontXLarge: calculateRem(42px);
-$fontXXLarge: calculateRem(68px);
-$fontHuge: calculateRem(80px);
+$fontMedium: calculateRem(22px);
+$fontLarge: calculateRem(28px);
+$fontXLarge: calculateRem(44px);
+$fontXXLarge: calculateRem(72px);
+$fontHuge: calculateRem(86px);
 
 // Defining font weight
 $fontLight: 300;

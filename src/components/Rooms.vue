@@ -1,7 +1,9 @@
     <template>
         <aside class="rooms">
-            <h1>Rooms</h1>
-            <div>
+            <div class="rooms__header">
+                <h2 class="rooms__heading">Rooms</h2>
+            </div>
+            <div class="rooms__list">
                 <a href="">#{{name}} </a>
             </div>
         </aside>

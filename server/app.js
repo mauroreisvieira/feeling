@@ -7,42 +7,19 @@ server.listen('3001');
 io.on('connection' , function (socket) {
     console.log('New User Has connected');
 
-    socket.on('newMessage', function (message, room, userName, userEmail, userPhoto) {
-        console.log(userName + ' send: ' + message + ' on ' + room + ' room');
-        let data = [];
-        data.push({
-            userName: userName,
-            userEmail: userEmail,
-            userPhoto: userPhoto,
-            msg: message,
-            room: room
-        });
-        console.log(data);
-        socket.to(room).emit('clientMessage' , data);
+    socket.on('newMessage', function (data) {
+        console.log(data.userName + ' send ' + data.message + ' in ' + data.room + ' room');
+        socket.to(data.room).emit('clientMessage' , data);
     });
 
-    socket.on('joinRoom', function (room, userName, userEmail, userPhoto) {
-        console.log(userName + ' join to room ' + room);
-        let data = [];
-        data.push({
-            userName: userName,
-            userEmail: userEmail,
-            userPhoto: userPhoto,
-            room: room
-        });
-        socket.join(room);
+    socket.on('joinRoom', function (data) {
+        console.log(data.userName + ' join to room ' + data.room);
+        socket.join(data.room);
+        socket.to(data.room).emit('userJoin' , data);
     });
 
-    socket.on('leaveRoom', function (userName, userEmail, userPhoto, room) {
-        console.log(userName + ' leave to room ' + room);
-        let data = [];
-        data.push({
-            userName: userName,
-            userEmail: userEmail,
-            userPhoto: userPhoto,
-            room: room
-        });
-        socket.leave(room);
+    socket.on('leaveRoom', function (data) {
+        console.log(data.userName + ' leave to room ' + data.room);
+        socket.leave(data.room);
     });
-
 });

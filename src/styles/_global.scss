@@ -28,7 +28,7 @@ pre {
 }
 
 .main {
-  height: calc(100% - #{$headerHeight});
+  height: calc(100% - #{$topBarHeight});
 }
 
 .main-container {

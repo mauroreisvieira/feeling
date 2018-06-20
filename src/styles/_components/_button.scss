@@ -16,6 +16,10 @@
         opacity: .5;
     }
 
+    @include small-only {
+        padding: $baseLine $baseLine * 4;
+    }
+
     &--login {
         padding: $baseLine * 3 $baseLine * 4;
         margin-top: $baseLine * 4;

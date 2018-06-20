@@ -1,9 +1,16 @@
 <template>
 	<div class="wrapper">
-		<header-layout :room="room" :profilePhoto="userPhoto" :profileName="userName"></header-layout>
+		<topbar :room="room" :profilePhoto="userPhoto" :profileName="userName"></topbar>
 		<main class="main">
 			<rooms @click="joinRoom('general')" name="HTML"></rooms>
 			<div class="chat">
+				<div class="chat__header">
+					<div class="list_users">
+						<div class="list_users__item"  v-for="user in users">
+							<img class="list_users__picture" :src="user.userPhoto" :alt="user.userName" :title="user.userName">
+						</div>
+					</div>
+				</div>
 				<div class="chat__messages">
 					<div class="chat__messages__user" v-for="message in messages" :class="userEmail === message.userEmail ? 'chat__messages__user--myself' : ''">
 						<div class="chat__messages__photo">
@@ -14,10 +21,10 @@
 								{{ message.userName }}
 							</div>
 							<div class="chat__messages__time">
-								1:20pm
+								{{ message.timestamp | formatDate }}
 							</div>
 							<div class="chat__messages__text">
-								{{ message.msg }}
+								{{ message.message }}
 							</div>
 						</div>
 					</div>
@@ -36,68 +43,101 @@
 </template>
 
 <script>
-import io from 'socket.io-client';
-import Header from './../layout/Header.vue'
-import Rooms from './Rooms.vue'
-export default {
-	name: 'chat',
-	components: {
-		'header-layout': Header,
-		'rooms': Rooms
-	},
-	props: {},
-	data() {
-		return {
-			userName: '',
-			userEmail: '',
-			userPhoto: '',
-			messageText: '',
-			messages: [],
-			room: '',
-			socket : io('localhost:3001')
-		}
-	},
-	methods: {
-		init () {
-            this.userName = localStorage.getItem('userName');
-            this.userEmail = localStorage.getItem('userEmail');
-            this.userPhoto = localStorage.getItem('userPhoto');
-			this.joinRoom('general');
-			console.log('Init');
-			this.socket.on('clientMessage' , function(data) {
-				console.log(data);
-				this.messages.push({
-					userName: data[0].userName,
-					userEmail: data[0].userEmail,
-					userPhoto: data[0].userPhoto,
-					msg: data[0].msg,
-					room: data[0].room
-				});
-			}.bind(this));
-		},
-		sendMessage () {
-			this.socket.emit('newMessage', this.messageText, this.room, this.userName, this.userEmail, this.userPhoto);
-			this.messages.push({
-	            userName: this.userName,
-	            userEmail: this.userEmail,
-	            userPhoto: this.userPhoto,
-	            msg: this.messageText,
-	            room: this.room
-        	});
-			this.messageText = '';
-		},
-		joinRoom (roomName) {
-			this.messages  = [];
-			if(this.room != '') {
-				this.socket.emit('leaveRoom', this.room, this.userName, this.userEmail, this.userPhoto);
+	import io from 'socket.io-client';
+	import Topbar from './../layout/Topbar.vue'
+	import Rooms from './Rooms.vue'
+	export default {
+		name: 'chat',
+		components: {Topbar, Rooms},
+		props: {},
+		data() {
+			return {
+				data: [],
+				userName: localStorage.getItem('userName'),
+				userEmail: localStorage.getItem('userEmail'),
+				userPhoto: localStorage.getItem('userPhoto'),
+				timestamp: '',
+				messageText: '',
+				messages: [],
+				users: [],
+				room: '',
+				socket : io('localhost:3001')
 			}
-			this.socket.emit('joinRoom', roomName, this.userName, this.userEmail, this.userPhoto);
-			this.room = roomName;
-		}
-	},
-	mounted() {
-		this.init();
+		},
+		methods: {
+			init () {
+				this.joinRoom('general');
+				this.socket.on('clientMessage' , function(data) {
+					this.messages.push({
+						userName: data.userName,
+						userEmail: data.userEmail,
+						userPhoto: data.userPhoto,
+						timestamp: data.timestamp,
+						message: data.message,
+						room: data.room
+					});
+				}.bind(this));
+
+				this.joinUser();
+				this.socket.on('userJoin' , function(data) {
+					this.users.push({
+						userName: data.userName,
+						userPhoto: data.userPhoto,
+						room: data.room
+					});
+				}.bind(this));
+			},
+			sendMessage () {
+				this.data = {
+					userName: this.userName,
+					userEmail: this.userEmail,
+					userPhoto: this.userPhoto,
+					timestamp: new Date().getTime(),
+					message: this.messageText,
+					room: this.room
+				};
+
+				this.socket.emit('newMessage', this.data);
+				this.messages.push(this.data);
+				this.messageText = '';
+			},
+			joinRoom (roomName) {
+				this.room = roomName;
+				this.messages  = [];
+				this.data = {
+					userName: this.userName,
+					userEmail: this.userEmail,
+					userPhoto: this.userPhoto,
+					timestamp: new Date().getTime(),
+					message: this.messageText,
+					room: this.room
+				};
+				this.socket.emit('joinRoom', this.data);
+				if(!this.room) {
+					this.socket.emit('leaveRoom', this.data);
+				}
+			},
+			joinUser() {
+				this.users.push({
+					userName: this.userName,
+					userPhoto: this.userPhoto,
+					room: this.room
+				});
+			}
+		},
+		filters: {
+			formatDate: function (value) {
+				let time = new Date(value);
+				return time.toLocaleString('en-US', {
+					hour: 'numeric',
+					minute: 'numeric',
+					hour12: true
+				});
+			}
+		},
+		mounted() {
+			this.init();
+		},
 	}
-}
 </script>
 
