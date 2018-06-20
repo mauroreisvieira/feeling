@@ -1,0 +1,38 @@
+.btn {
+    min-width: 120px;;
+    padding: $baseLine * 2 $baseLine * 4;
+    border: 0;
+    border-radius: 2px;
+    font-size: 1rem;
+    font-weight: $fontRegular;
+    cursor: pointer;
+    transition: background .3s cubic-bezier(0.55, 0.06, 0.63, 0.98);
+
+    &:focus {
+        outline: none;
+    }
+
+    &[disabled] {
+        opacity: .5;
+    }
+
+    &--login {
+        padding: $baseLine * 4 $baseLine * 4;
+        margin-top: $baseLine * 4;
+        background-color: $colorViolet;
+        color: #fff;
+
+        &:hover {
+            background-color: #A195D4;
+        }
+
+        @include small-only {
+            padding: $baseLine * 3 $baseLine * 4;
+        }
+    }
+
+    &--send {
+        background-color: #8fbc8f;
+        color: #fff;
+    }
+}

@@ -2,7 +2,7 @@
     <div class="login">
         <div class="login__header">
             <h1 class="login__heading">Welcome Back,</h1>
-            <h1 class="login__info">Sign in to continue</h1>
+            <p class="login__info">Sign in to continue</p>
         </div>
         <div class="login__body" v-if="userPhoto !== ''">
             <img :src="userPhoto" title="{userName}" alt="{userName}">
@@ -11,11 +11,11 @@
             <form class="form form--login" @submit.prevent="login()">
                 <div class="form__field">
                     <label class="form__label" for="userName">Name</label>
-                    <input id="userName" type="text" v-model="userName":class="'form__input ' + [nameValid ? '' : 'is-invalid']">
+                    <input v-on:keydown="validateName" id="userName" type="text" v-model="userName":class="'form__input ' + [nameValid ? '' : 'is-invalid']">
                 </div>
                 <div class="form__field">
                     <label class="form__label" for="userEmail">Email</label>
-                    <input id="userEmail" type="text" v-model="userEmail" :class="'form__input ' + [emailValid ? '' : 'is-invalid']">
+                    <input v-on:keydown="validateEmail" id="userEmail" type="text" v-model="userEmail" :class="'form__input ' + [emailValid ? '' : 'is-invalid']">
                 </div>
                 <button class="btn btn--login" type="submit">Login</button>
             </form>
@@ -40,20 +40,33 @@ export default {
     },
     methods: {
         login () {
-            if (this.checkEmail()) {
+            this.validateName();
+            this.validateEmail();
+            if (this.nameValid && this.emailValid) {
                 this.userPhoto = this.getPhoto();
                 this.isLogged = true;
                 this.emailValid = true;
                 this.nameValid = true;
                 this.dispatchLoginState();
                 this.setStorage();
-            } else {
-                this.emailValid = false;
-                this.nameValid = this.userName !== '' ? true : false;
             }
         },
+        validateName() {
+            this.nameValid = true;
+            if (this.userName === '') {
+                this.nameValid = false;
+            }
+            return this.nameValid;
+        },
+        validateEmail() {
+            this.emailValid = true;
+            if (!this.checkEmail()) {
+                this.emailValid = false;
+            }
+            return this.emailValid;
+        },
         checkEmail() {
-            return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.userEmail));
+            return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.userEmail)) && (this.userName !== '');
         },
         getPhoto(size = 200) {
             return 'http://www.gravatar.com/avatar/' + this.hash.md5(this.userEmail, false, false) + '.jpg?s=' + size;

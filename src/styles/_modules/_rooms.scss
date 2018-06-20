@@ -1,0 +1,15 @@
+.rooms {
+    position: relative;
+    flex-basis: 300px;
+    padding: $baseLine * 4;
+
+    &::before {
+        position: absolute;
+        right: -12px;
+        display: block;
+        width: 1px;
+        height: 100%;
+        background-color: #eee;
+        content: '';
+    }
+}
