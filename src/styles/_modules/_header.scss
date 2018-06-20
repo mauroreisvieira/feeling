@@ -1,17 +1,21 @@
 
 .header {
     display: flex;
-    padding: $baseLine * 2 $baseLine * 4;
-    background-color: #eee;
+    align-items: center;
+    height: $headerHeight;
+    padding: 0 $baseLine * 4;
+    background-color: $colorGrayBackground;
 
     &__logo {
         flex: 1;
+        height: 100%;
     }
 
     &__user {
         display: flex;
         flex-basis: 20%;
         align-items: center;
+        height: 100%;
         font-size: .8rem;
 
         &__name {

@@ -1,7 +1,12 @@
 .rooms {
+    flex-basis: $roomsWidth;
+    flex-direction: column;
     position: relative;
-    flex-basis: 300px;
     padding: $baseLine * 4;
+
+    @include small-only {
+        display: none;
+    }
 
     &::before {
         position: absolute;

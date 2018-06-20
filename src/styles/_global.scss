@@ -22,6 +22,15 @@ pre {
   padding: 13px;
 }
 
+.wrapper {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  height: calc(100% - #{$headerHeight});
+}
+
 .main-container {
   @include container(true);
 }

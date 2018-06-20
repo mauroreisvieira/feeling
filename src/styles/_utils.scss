@@ -1,3 +1,6 @@
+// Defining baseline
+$baseLine: 6px;
+
 // Defining font size default
 $fontSizeDefault: 16px;
 
@@ -14,15 +17,22 @@ $lineHeight: 26px;
   @return  $context / $size + em;
 }
 
+// Header
+$headerHeight: $baseLine * 12;
+
+// Rooms
+$roomsWidth: 320px;
+
 // Defining breakpoints
+$xSmall: 280px;
+$small: 480px;
 $medium: 620px;
 $wide: 800px;
 $huge: 1600px;
+$smallContainer: 576px;
 $mediumContainer: 688px;
 $wideContainer: 864px;
-
-// Defining baseline
-$baseLine: 6px;
+$hugeContainer: 100%;
 
 // Defining grid sizes
 $mediumColCount: 3;
@@ -109,6 +119,10 @@ $sidebarWidth: 280px;
     @media only screen and (max-width:$medium - 1) { @content; }
   }
 
+  @if $media-query == small-only {
+    @media only screen and (min-width: $xSmall) and (max-width: $wide - 1) { @content; }
+  }
+
   @if $media-query == medium {
     @media only screen and (min-width:$medium) { @content; }
   }
@@ -127,7 +141,8 @@ $sidebarWidth: 280px;
 }
 
 // Just some helpers...
-@mixin small-only { @include media-query(small) { @content }; }
+@mixin small { @include media-query(small) { @content }; }
+@mixin small-only { @include media-query(small-only) { @content }; }
 @mixin medium { @include media-query(medium) { @content }; }
 @mixin medium-only { @include media-query(medium-only) { @content }; }
 @mixin wide { @include media-query(wide) { @content }; }
