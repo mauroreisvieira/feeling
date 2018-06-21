@@ -4,7 +4,8 @@
     align-items: center;
     height: $topBarHeight;
     padding: 0 $baseLine * 4;
-    background-color: $colorGrayBackground;
+    background-color: #fff;
+    box-shadow: 0 0 2rem rgba(0,0,255,.1);
 
     &__logo {
         display: flex;

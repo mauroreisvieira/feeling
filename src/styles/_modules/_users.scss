@@ -5,8 +5,8 @@
     margin-left: -$baseLine;
 
     &__item {
-        width: 36px;
-        height: 36px;
+        width: $baseLine * 6;
+        height: $baseLine * 6;
         margin: 0 $baseLine * 1;
 
         &::before {

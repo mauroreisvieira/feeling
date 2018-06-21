@@ -2,11 +2,11 @@
 	<div class="wrapper">
 		<topbar :room="room" :profilePhoto="userPhoto" :profileName="userName"></topbar>
 		<main class="main">
-			<rooms @click="joinRoom('general')" name="general"></rooms>
+			<rooms @click="joinRoom('general')" icon="G"  name="General"></rooms>
 			<div class="chat">
 				<div class="chat__header">
 					<div class="users">
-						<div class="users__item is-online" v-for="user in users" :data-tooltip="user.userName">
+						<div class="tooltip users__item is-online" v-for="user in users" :data-tooltip="user.userName">
 							<img class="users__picture" :src="user.userPhoto" :alt="user.userName" :title="user.userName">
 						</div>
 					</div>
