@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Login from './components/Login.vue'
-import Chat from './components/Chat.vue'
+import Login from './pages/Login.vue'
+import Chat from './pages/Chat.vue'
 export default {
 	name: 'app',
 	components: { Login, Chat },

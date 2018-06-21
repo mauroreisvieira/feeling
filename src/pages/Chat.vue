@@ -45,7 +45,7 @@
 <script>
 	import io from 'socket.io-client';
 	import Topbar from './../layout/Topbar.vue'
-	import Rooms from './Rooms.vue'
+	import Rooms from './../components/Rooms.vue'
 	export default {
 		name: 'chat',
 		components: {Topbar, Rooms},
